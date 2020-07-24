@@ -83,7 +83,7 @@ class Indicators:
                 result.append( math.atan( (inp[i] - inp[i - length]) / (length * value_per_point) ) * 180 / math.pi )
         return result
 
-    def _cci(self, inp, length, moving_average = self._ma, multiplier = .015):
+    def _cci(self, inp, length, moving_average, multiplier = .015):
 
         assert isinstance(inp, list) or isinstance(inp, np.ndarray)
         result = []
@@ -105,7 +105,7 @@ class Indicators:
                 result.append( (inp[i] - ma_list[i]) / denom * length / multiplier )
         return result
 
-    def _t3(self, inp, length, moving_average=self._ema, multiplier=.84):
+    def _t3(self, inp, length, moving_average, multiplier=.84):
 
         assert isinstance(inp, list) or isinstance(inp, np.ndarray)
         result = []
