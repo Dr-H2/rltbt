@@ -35,7 +35,7 @@ import numpy as np
 
 class Indicators:
 
-    def __init__():
+    def __init__(self):
         self._moving_average_table = {'ma': self._ma, 'ema': self._ema} # add to the list if a new moving average is programmed
 
     def _ema(self, inp, length):
@@ -83,9 +83,11 @@ class Indicators:
                 result.append( math.atan( (inp[i] - inp[i - length]) / (length * value_per_point) ) * 180 / math.pi )
         return result
 
-    def _cci(self, inp, length, moving_average, multiplier = .015):
+    def _cci(self, inp, length, moving_average=None, multiplier = .015):
 
         assert isinstance(inp, list) or isinstance(inp, np.ndarray)
+        if moving_average == None: # default to simple moving average
+            moving_average = self._ma
         result = []
         ma_list = moving_average(inp, length)
         for i in range(len(inp)):
@@ -105,9 +107,11 @@ class Indicators:
                 result.append( (inp[i] - ma_list[i]) / denom * length / multiplier )
         return result
 
-    def _t3(self, inp, length, moving_average, multiplier=.84):
+    def _t3(self, inp, length, moving_average=None, multiplier=.84):
 
         assert isinstance(inp, list) or isinstance(inp, np.ndarray)
+        if moving_average == None: # default to ema
+            moving_average = self._ema
         result = []
         emas = [np.array(moving_average(inp, length))]
         for i in range(1, 6):
@@ -185,11 +189,14 @@ class Indicators:
             return None
         return param['length']
 
-    def _get_moving_average(self, kwargs, default=self._ma, mandatory=False):
+    def _get_moving_average(self, kwargs, default=None, mandatory=False): # default is simple moving average
         if 'moving_average' not in kwargs:
             if mandatory:
                 raise NameError('moving_average must be specified.')
-            return default
+            if default == None:
+                return self._ma
+            else:
+                return default
         elif kwargs['moving_average'] in self._moving_average_table:
             return self._moving_average_table[kwargs['moving_average']]
         else:
