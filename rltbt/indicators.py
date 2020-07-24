@@ -178,16 +178,16 @@ class Indicators:
     # maybe it's not necessary. I put return None after each error.
 
     def _get_length(self, kwargs, mandatory=True): # no default length here.
-        if 'length' not in param.keys() and mandatory:
+        if 'length' not in kwargs and mandatory:
             raise NameError(f'Length must be specified.')
             return None
-        elif not isinstance(param['length'], int):
+        elif not isinstance(kwargs['length'], int):
             raise TypeError('Length must be an integer.')
             return None
-        elif param['length'] <= 0:
+        elif kwargs['length'] <= 0:
             raise ValueError('Length must be a positive integer.')
             return None
-        return param['length']
+        return kwargs['length']
 
     def _get_moving_average(self, kwargs, default=None, mandatory=False): # default is simple moving average
         if 'moving_average' not in kwargs:
