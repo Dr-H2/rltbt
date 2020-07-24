@@ -124,7 +124,7 @@ class Indicators:
 
 
 
-    def indicator(data, indicator_name, **kwargs):
+    def indicator(self, data, indicator_name, **kwargs):
 
         inp = data
         result = []
