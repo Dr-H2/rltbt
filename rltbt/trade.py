@@ -11,7 +11,7 @@ def in_trading_hour(tt):
     return True
 
 
-def get_trade_result(indices, inp, going_long = True, stop_offset = 12, target_offset = 12):
+def get_trade_result(indices, inp, going_long = True, stop_offset = 12, target_offset = 12, TICK_SIZE=.25):
 
     ######indices is a list of indices of candles that we will test on.
     ######inp format: time, high, low, last
