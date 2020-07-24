@@ -33,7 +33,7 @@ import pandas as pd
 import numpy as np
 
 
-class Indicators
+class Indicators:
 
     def __init__():
         self._moving_average_table = {'ma': self._ma, 'ema': self._ema} # add to the list if a new moving average is programmed
